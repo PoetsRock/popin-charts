@@ -1,14 +1,36 @@
 'use strict';
 
 // Admins controller
-angular.module('core').controller('d3DataController', ['$scope', '$http', '$interval', 'DataService', '$resource', '$timeout',
-	function ($scope, $http, $interval, DataService, $resource, $timeout) {
+angular.module('core').controller('d3DataController', ['$scope', '$http', '$interval', 'DataService', '$window',
+	function ($scope, $http, $interval, DataService, $window) {
 
 		//data for center of donut
 		$scope.test = function () {
 			var centerGraphic = 'variable';
 			return centerGraphic
 		};
+
+	//check window size on resize in order to resize charts
+	/** (not working / in progress) **/
+		//var lineChart1 = null,
+		//	lineChart2 = null;
+		//
+		//$scope.$watch(function () {
+		//		angular.element($window).on('resize', function () {
+		//			console.log('window size: ', $window.innerWidth);
+		//			if ($window.innerWidth <= 320) {
+		//				lineChart1.resize({width: 300});
+		//				lineChart2.resize({width: 300});
+		//			} else if ($window.innerWidth <= 768){
+		//				lineChart1.resize({width: 600});
+		//				lineChart2.resize({width: 600});
+		//			} else if ($window.innerWidth > 768 && lineChart1.width < 600){
+		//				lineChart1.resize({width: '100%'});
+		//				lineChart2.resize({width: '100%'});
+		//			}
+		//		});
+		//	}
+		//);
 
 
 		/**
@@ -42,7 +64,7 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 							console.log("onmouseout", d, i);
 						},
 						colors: {
-							'# of Users Not Logged In': 'rgba(0,0,0,0',
+							'# of Users Not Logged In': 'rgba(0,0,0,0)',
 							'# of Users Logged In': '#00B4F0'
 						},
 						color: function (color, d) {
@@ -73,6 +95,9 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 					},
 					transition: {
 						duration: 3500
+					},
+					size: {
+						height: '100%'
 					}
 				});
 
@@ -96,8 +121,8 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 					bindto: '#donutChart2',
 					data: {
 						columns: [
-							['# of Users Not Logged In', $scope.usersInvited - $scope.activeUsers],
-							['# of Users Logged In', $scope.activeUsers]
+							['# of Inactive Users', $scope.usersInvited - $scope.activeUsers],
+							['# of Active Users', $scope.activeUsers]
 						],
 						type: 'donut', onclick: function (d, i) {
 							console.log("onclick", d, i);
@@ -107,6 +132,10 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 						},
 						onmouseout: function (d, i) {
 							console.log("onmouseout", d, i);
+						},
+						colors: {
+							'# of Inactive Users': 'rgba(0,0,0,0)',
+							'# of Active Users': '#00B4F0'
 						}
 					},
 					legend: {
@@ -119,16 +148,19 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 							}
 						}
 					},
-					//duration: {
-					//	transition: 1000
-					//},
+					duration: {
+						transition: 3500
+					},
 					donut: {
 						label: {
 							show: false
 						},
-						//width: auto,
+						width: 5.5,
 						title: labelData + '%',
 						expand: false
+					},
+					size: {
+						height: '100%'
 					}
 				});
 
@@ -168,9 +200,21 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 							onmouseout: function (d, i) {
 								console.log("onmouseout", d, i);
 							}
+						},
+						pie: {
+							label: {
+								format: function (value, ratio, id) {
+									return d3.format('%')(ratio);
+								},
+								show: false
+								//threshold: 0.15
+							},
+							expand: false
 						}
-
-				});
+						//size: {
+						//	r: '100%'
+						//}
+					});
 			});
 
 
@@ -179,49 +223,71 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 		 * Hours Remaining Chart
 		 *
 		 **/
-
+		$scope.toggleGauge = null;
+		$scope.isGaugeChart = true;
 		DataService.chart2Data()
 			.success(function (chart2Data) {
 				var startTime = moment.unix(chart2Data.segments[1].start_time).toDate(),
 					segmentsLength = chart2Data.segments.length - 1,
 					endTime = moment.unix(chart2Data.segments[segmentsLength].start_time + chart2Data.info.segment_duration).toDate(),
 					fakeEndTime = moment().add(50400, 'seconds').toDate(), //to set an end time in the future,
-					timeRemaining = moment(fakeEndTime).diff(moment(), 'hours'),
 					totalDuration = moment(fakeEndTime).diff(startTime, 'hours');
+				$scope.timeRemaining = moment(fakeEndTime).diff(moment(), 'hours');
 
-				var gaugeChart = c3.generate({
+
+				var gaugeChart1 = c3.generate({
 					bindto: '#gaugeChart1',
 					data: {
 						columns: [
-							['Hours Remaining', timeRemaining]
+							['Hours Remaining', $scope.timeRemaining]
 						],
 						type: 'gauge',
 						onclick: function (d, i) {
-							console.log("onclick", d, i);
+							//console.log("onclick", d, i);
+
+							/** will transition between two chart types -- in progress **/
+							//$scope.toggleGauge = function() {
+							//function toggleGauge () {
+							//	if ($scope.isGaugeChart === 'true'){
+							//		gaugeChart1.transform('line');
+							//		console.log('check!', $scope.isGaugeChart);
+							//	} else {
+							//		gaugeChart1.transform('line');
+							//		console.log('nope!', $scope.isGaugeChart);
+							//	}
+							//	$scope.isGaugeChart = !$scope.isGaugeChart;
+							//},
 						},
 						onmouseover: function (d, i) {
-							console.log("onmouseover", d, i);
+							//console.log("onmouseover", d, i);
 						},
 						onmouseout: function (d, i) {
-							console.log("onmouseout", d, i);
+							//console.log("onmouseout", d, i);
 						}
 					},
 					gauge: {
-						//label: {
-						//    format: function(value, ratio) {
-						//        return value;
-						//    },
-						//    show: false // to turn off the min/max labels.
-						//},
+						label: {
+							format: function (value, ratio) {
+								return value;
+							},
+							show: false // to turn off the min/max labels.
+						},
 						min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-						max: totalDuration, // 100 is default
-						units: 'hours'
-						//width: 39 // for adjusting arc thickness
+						max: 17, // 100 is default
+						units: 'h',
+						width: 8.5 // for adjusting arc thickness
 					},
+					//legend: {
+					//	format: function (value, ratio, id) {
+					//		return d3.format('hours')(value);
+					//	},
+					//	//show: false
+					//	//threshold: 0.15
+					//},
 					color: {
 						pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
 						threshold: {
-							unit: '%h', // percentage is default
+							unit: '%X', // percentage is default
 							max: totalDuration, // 100 is default
 							values: [totalDuration * 0.3, totalDuration * 0.6, totalDuration * 0.9, totalDuration]
 						}
@@ -230,7 +296,6 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 						height: '100%'
 					}
 				});
-				//chart.transform('line');
 			});
 
 
@@ -272,6 +337,9 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 							segmentParticipantsArray //the following lines are array of data
 						],
 						type: 'spline'
+					},
+					zoom: {
+						enabled: true
 					},
 					axis: {
 						x: {
@@ -340,7 +408,7 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 				};
 
 				var tempTimeChart2Array = [moment.unix(1428339912).toDate(), moment.unix(1428426312).toDate(), moment.unix(1428519912).toDate(), moment.unix(1428613512).toDate(), moment.unix(1428743112).toDate()];
-				var lineChart1 = c3.generate({
+				var lineChart2 = c3.generate({
 					bindto: '#lineChart2',
 					padding: {
 						top: 40,
@@ -359,6 +427,9 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 							segmentIdeasArray
 						],
 						type: 'spline'
+					},
+					zoom: {
+						enabled: true
 					},
 					axis: {
 						x: {
@@ -394,7 +465,7 @@ angular.module('core').controller('d3DataController', ['$scope', '$http', '$inte
 		 *
 		 **/
 
-		var barChart = c3.generate({
+		var barChart1 = c3.generate({
 			bindto: '#barChart1',
 			data: {
 				columns: [

@@ -6,15 +6,90 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width: 992px) {
 
+    img {
+        margin: 2% 0 0 7%;
+    }
+
+    .header {
+        height: 13rem;
+    }
+
+
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 768px) {
+    .chart-background {
+        margin: 1% 0;
+    }
 
+    .half-page-left , .half-page-right {
+        margin: 1% 0;
+    }
+
+    .half-page-left {
+        margin-right: -3%;
+    }
+
+    .half-page-right {
+        margin-left: -3%;
+    }
+
+    .header {
+        margin: 0 0 1% 0;
+    }
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+    .header, .col-xs-6 {
+        width: 70%;
+        position: relative;
+        /*top: 50%;*/
+        left: 15%;
+    }
+    
+    .col-md-12 {
+
+    }
+
+    .header {
+        left: 16%;
+        width: 68%;
+    }
+
+    .col-xs-6 svg {
+        -webkit-transform: scale(0.6) translateY(-35%);
+        -moz-transform: scale(0.6) translateY(-35%);
+        -ms-transform: scale(0.6) translateY(-35%);
+        -o-transform: scale(0.6) translateY(-35%);
+        transform: scale(0.6) translateY(-35%);
+    }
+
+    .col-xs-6 .c3 svg {
+        /*transform: translateX(20%);*/
+    }
+
+    .half-page-left , .half-page-right {
+        margin: 1% 0;
+    }
+
+    .col-xs-6 .chart-background {
+        /*background-image: none;*/
+        height: 25rem;
+    }
+
+    h1, h3, h5 {
+        /*font-size: 1.25rem;*/
+    }
+
+    .col-md-12 .c3 text {
+        /*font-size: 0.95rem;*/
+    }
+
+    .c3-axis {
+        display: none;
+    }
 
 }
 
@@ -30,6 +105,20 @@
 and (min-device-width: 320px)
 and (max-device-width: 568px)
 and (-webkit-min-device-pixel-ratio: 2) {
+
+    .header, .col-xs-6 {
+        width: 100%;
+        left: 0;
+    }
+
+    .col-xs-6 svg {
+        -webkit-transform: scale(0.7) translate(35%, -35%);
+        -moz-transform: scale(0.7) translate(35%, -35%);
+        -ms-transform: scale(0.7) translate(35%, -35%);
+        -o-transform: scale(0.7) translate(35%, -35%);
+        transform: scale(0.7) translate(35%, -35%);
+    }
+
 
 }
 

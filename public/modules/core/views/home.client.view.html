@@ -4,8 +4,8 @@
         <div class="col-md-12">
 
             <div class="row">
-                <div class="col-md-12">
-                    <div class="chart-background">
+                <div class="col-sm-12">
+                    <div class="chart-background header">
                         <div class="row">
                             <div class="col-md-11 col-md-offset-1">
                                 <a href="#"><img src="../../../modules/core/img/logo.png"></a>
@@ -16,9 +16,9 @@
             </div>
 
             <div class="row">  <!--row #1-->
-                <div class="col-md-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="chart-background half-page-left">
-                        <!-- Donut Chart for Active Users -->
+        <!-- Donut Chart for Logged In Users -->
                         <div class="row">
                             <div class="col-md-12">
                                 <h3>{{usersLoggedIn}} Users Logged In</h3>
@@ -30,9 +30,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="chart-background half-page-right">
-                        <!-- Donut Chart for Active Users -->
+        <!-- Donut Chart for Active Users -->
                         <div class="row">
                             <div class="col-md-12">
                                 <h3>{{activeUsers}} Active Users</h3>
@@ -47,31 +47,26 @@
 
 
             <div class="row">  <!--row #2-->
-
-                <div class="col-md-6 col-xs-12">
-
+                <div class="col-xs-6">
                     <div class="chart-background half-page-left">
-                        <!-- Donut Chart for Active Users -->
+        <!-- Pie Chart for Traffic Source -->
                         <h3>Traffic Sources</h3>
 
                         <div id="pieChart1"></div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-toggle" onclick="pieChart.toggle()">Browser</button>
-                            </div>
-
-                        </div>
+                        <!-- (in progress) will transition between different sets of data -->
+                        <!--<button class="btn btn-toggle" onclick="pieChart.toggle()">Browser</button>-->
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-xs-6">
 
                     <div class="chart-background half-page-right">
-                        <!-- Gauge Chart for Hours Remaining in Voting -->
-                        <h3>Hours Remaining</h3>
+        <!-- Gauge Chart for Hours Remaining in Voting -->
+                        <h3>{{timeRemaining}} Hours Remaining</h3>
 
                         <div id="gaugeChart1"></div>
+
                     </div>
 
                 </div>
@@ -81,11 +76,14 @@
             <div class="row">  <!--row #3-->
                 <div class="col-md-12">
                     <div class="chart-background">
-                        <!-- Line Chart for Participation Over Time -->
+        <!-- Line Chart for Participation Over Time -->
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>{{chartTitle}}</h3>
-                                <h5 class="text-center">Participation Over Time</h5>
+
+                                <h3 class="hidden-xs">{{chartTitle}}</h3>
+                                <h5 class="text-center hidden-xs">Participation Over Time</h5>
+
+                                <h3 class="text-center visible-xs">Participation Over Time</h3>
                             </div>
                         </div>
 
@@ -100,7 +98,7 @@
 
                 <div class="col-md-12">
                     <div class="chart-background">
-                        <!-- Line Chart for Time vs. Activity -->
+        <!-- Line Chart for Time vs. Activity -->
                         <div class="row">
                             <div class="col-md-12">
                                 <h3>Time vs. Activity</h3>
@@ -109,6 +107,14 @@
 
                         <div id="lineChart2"></div>
 
+
+                        <!--
+                             (in progress) will transition between gauge chart and another type of chart (most likely a bar chart or area chart.
+                             Also, and more useful perhaps, we could kill the first line chart (above) and add that data to this second line chart.
+                             So, the button would either simply add user particpation as a separate line, or it could trigger a multichart with somehting
+                             like a line and bar chart.
+                        -->
+                        <!--<button class="btn btn-toggle" data-ng-click="$scope.toggleParticipation()">View Participation Data</button>-->
                     </div>
                 </div>
 

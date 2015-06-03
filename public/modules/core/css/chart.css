@@ -14,14 +14,19 @@ svg:hover {
     font-size: 3rem;
 }
 
+.c3-chart-arc text {
+    color: #262626;
+}
+
 .c3-legend-item {
     font-size: 1.75rem;
 }
 
 .c3-legend-item-tile {
-    -webkit-transform: translateY(-11px);
-    -moz-transform: translateY(-1px);
-    -o-transform: translateY(-1px);
+    -webkit-transform: translate(2px, -1px);
+    -ms-transform: translate(2px, -1px);
+    -moz-transform: translate(2px, -1px);
+    -o-transform: translate(2px, -1px);
     transform: translate(2px, -1px);
 }
 
@@ -44,11 +49,6 @@ svg:hover {
 
 .c3-chart-arc:hover {
     stroke-width: 3px;
-
-}
-
-.c3-chart-arcs:hover {
-/*transform: rotate(360deg);*/
 }
 
 .c3-line {
@@ -64,10 +64,16 @@ svg:hover {
     font-size: 15px;
 }
 
-.c3-target-data1 {
+#lineChart1 {
+    top: -10%;
+}
+
+#donutChart .c3-target-data2 {
+    opacity: 0.5 !important;
+
 
 }
 
-.c3-target-data2 {
-    /*opacity: 0 !important;*/
-}
+/*.c3-target-data2 {*/
+    /*opacity: 0.5 !important;*/
+/*}*/
