@@ -1,0 +1,134 @@
+<!--
+    experimenting with a different layout, 3 charts per row instead of 2
+-->
+
+<section data-ng-controller="d3DataController">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="chart-background">
+                        <div class="row">
+                            <div class="col-md-11 col-md-offset-1">
+                                <a href="#"><img src="../../../modules/core/img/logo.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">  <!--row #1-->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="chart-background ">
+                        <!-- Donut Chart for Active Users -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{usersLoggedIn}} Users Logged In</h3>
+                            </div>
+                        </div>
+
+                        <div id="donutChart1"></div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="chart-background ">
+                        <!-- Donut Chart for Active Users -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{activeUsers}} Active Users</h3>
+                            </div>
+                        </div>
+
+                        <div id="donutChart2"></div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+
+                    <div class="chart-background ">
+                        <!-- Donut Chart for Active Users -->
+                        <h3>Traffic Sources</h3>
+
+                        <div id="pieChart1"></div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-toggle" onclick="pieChart.toggle()">Browser</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">  <!--row #2-->
+
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+
+                    <div class="chart-background ">
+                        <!-- Gauge Chart for Hours Remaining in Voting -->
+                        <h3>Hours Remaining</h3>
+
+                        <div id="gaugeChart1"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="chart-background">
+                        <!-- Line Chart for Participation Over Time -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{chartTitle}}</h3>
+                                <h5 class="text-center">Participation Over Time</h5>
+                            </div>
+                        </div>
+
+                        <div id="barChart1"></div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="chart-background">
+                    <!-- Line Chart for Participation Over Time -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>{{chartTitle}}</h3>
+                            <h5 class="text-center">Participation Over Time</h5>
+                        </div>
+                    </div>
+
+                    <div id="lineChart1"></div>
+
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="chart-background">
+                    <!-- Line Chart for Time vs. Activity -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Time vs. Activity</h3>
+                        </div>
+                    </div>
+
+                    <div id="lineChart2"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
